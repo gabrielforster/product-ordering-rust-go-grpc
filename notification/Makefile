@@ -1,2 +1,2 @@
 build:
-	GOOS=linux GOARCH=amd64 go build -o bin/$(BINARY_NAME) -v
+	env GOOS=linux go build -o bin/$(BINARY_NAME) -v -ldflags="-s -w" main.go
