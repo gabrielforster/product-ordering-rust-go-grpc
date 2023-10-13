@@ -32,7 +32,7 @@ pub struct PostgresRepository {
 }
 
 impl PostgresRepository {
-    pub async fn connect(url: &str, pool_size: u32) -> PersistenceResult<Self> {
+    pub async fn connect(url: &str, pool_size: u32) -> Result<Self, sqlx::Error> {
         let pool = PgPoolOptions::new()
             .max_connections(pool_size)
             .connect(url)
@@ -56,10 +56,7 @@ impl PostgresRepository {
             }
         });
 
-        Ok(PostgresRepository {
-            pool,
-            product_cache,
-        })
+        Ok(PostgresRepository { pool, product_cache })
     }
 
 }
